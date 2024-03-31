@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://rqge5dkcghrb"]
+
+[ext_resource type="Texture2D" uid="uid://ddqppxwn3f3xw" path="res://sprites/enemy/human_enemy3.png" id="1_0i58m"]
+[ext_resource type="Script" path="res://enemy.gd" id="1_e0wo2"]
+[ext_resource type="Texture2D" uid="uid://dqjmx2l5jgbka" path="res://sprites/enemy/human_enemy1.png" id="1_kicie"]
+[ext_resource type="Texture2D" uid="uid://b5m23jm55lt1t" path="res://sprites/enemy/human_enemy2.png" id="2_hlmij"]
+[ext_resource type="AudioStream" uid="uid://bu6l2mevlv152" path="res://sounds/enemy/humanzombiedeath1.wav" id="4_e3k5p"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3etmu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p4hro"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_0i58m")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_kicie")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_hlmij")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[node name="Enemy" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_e0wo2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_3etmu")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.328885, 0, 0, 0, 0.278632, 0, 0, 0, 1, 0, 0.0877632, 0)
+pixel_size = 0.008
+billboard = 2
+texture_filter = 2
+sprite_frames = SubResource("SpriteFrames_p4hro")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="DeathSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_e3k5p")
+unit_size = 18.56
+max_db = 0.143
+bus = &"SFX"

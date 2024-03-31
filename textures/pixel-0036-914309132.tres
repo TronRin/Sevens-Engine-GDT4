@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dl0rmkmq18mir"]
+
+[ext_resource type="Texture2D" uid="uid://bvl2gn4vx48jy" path="res://textures/pixel-0036-914309132.png" id="1_6tudd"]
+
+[resource]
+shading_mode = 0
+disable_ambient_light = true
+albedo_texture = ExtResource("1_6tudd")
+texture_filter = 2

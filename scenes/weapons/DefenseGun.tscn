@@ -1,0 +1,123 @@
+[gd_scene load_steps=11 format=3 uid="uid://c87j7m8qwuiem"]
+
+[ext_resource type="Script" path="res://scenes/weapons/DefenseGun.gd" id="1_efm00"]
+[ext_resource type="Texture2D" uid="uid://jl85ec7kgxro" path="res://sprites/weapons/DefenseGunSheet.png" id="2_6hk6c"]
+[ext_resource type="Texture2D" uid="uid://bvura0i15bil4" path="res://sprites/weapons/DefenseGunSheet_n.png" id="3_6h0oe"]
+[ext_resource type="AudioStream" uid="uid://i15uy714ru4p" path="res://sounds/weapons/defense_gun1.wav" id="9_84575"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5k1fg"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_4unri"]
+diffuse_texture = ExtResource("2_6hk6c")
+normal_texture = ExtResource("3_6h0oe")
+texture_filter = 1
+
+[sub_resource type="Animation" id="Animation_5685b"]
+resource_name = "DefenseGunIdle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_go73w"]
+resource_name = "DefenseGunShoot"
+length = 0.45
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 1, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v6kqt"]
+_data = {
+"DefenseGunIdle": SubResource("Animation_5685b"),
+"DefenseGunShoot": SubResource("Animation_go73w")
+}
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_02gh7"]
+size = Vector2(24, 24)
+
+[node name="DefenseGun" type="Node3D"]
+script = ExtResource("1_efm00")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GunBase" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="DefenseGun2D" type="Sprite2D" parent="CanvasLayer/GunBase"]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_5k1fg")
+position = Vector2(269, -248)
+scale = Vector2(2.25647, 2.25647)
+texture = SubResource("CanvasTexture_4unri")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="DefenseGunAnim" type="AnimationPlayer" parent="CanvasLayer/GunBase/DefenseGun2D"]
+libraries = {
+"": SubResource("AnimationLibrary_v6kqt")
+}
+autoplay = "DefenseGunIdle"
+
+[node name="CrossHair" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -13.0
+offset_top = -13.0
+offset_right = 13.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.564706)
+metadata/_edit_use_anchors_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="CanvasLayer"]
+position = Vector2(819, 482)
+energy = 12.15
+blend_mode = 2
+shadow_enabled = true
+shadow_filter = 1
+texture = SubResource("PlaceholderTexture2D_02gh7")
+
+[node name="GunRays" type="Node3D" parent="."]
+
+[node name="RayCast3D" type="RayCast3D" parent="GunRays"]
+target_position = Vector3(0, 0, -20)
+collision_mask = 3
+
+[node name="ShootSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("9_84575")
+panning_strength = 0.0
+bus = &"SFX"

@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://ix8ug2a66lv6"]
+
+[ext_resource type="Script" path="res://scenes/special/muzzle_flash.gd" id="1_nunxj"]
+
+[node name="MuzzleFlash" type="OmniLight3D"]
+light_color = Color(0.996078, 0.941176, 0.721569, 1)
+light_energy = 11.0
+light_indirect_energy = 2.455
+light_size = 0.293
+omni_range = 8.0
+script = ExtResource("1_nunxj")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

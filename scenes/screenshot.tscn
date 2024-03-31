@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://f3jwplnc3xn"]
+
+[ext_resource type="Script" path="res://scenes/screenshot.gd" id="1_wuads"]
+
+[node name="screenshot" type="Node3D"]
+script = ExtResource("1_wuads")

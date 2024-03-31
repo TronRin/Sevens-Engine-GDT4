@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://j1022s7vcwmq"]
+
+[ext_resource type="Script" path="res://scenes/items/interactable.gd" id="1_owfjs"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xfwts"]
+size = Vector3(1.54523, 1.41766, 0.903687)
+
+[node name="Interactable" type="Area3D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_owfjs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_xfwts")

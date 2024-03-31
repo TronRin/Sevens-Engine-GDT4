@@ -1,0 +1,177 @@
+[gd_scene load_steps=8 format=3 uid="uid://krvqn31p0nq6"]
+
+[ext_resource type="Texture2D" uid="uid://ceaien2gb0ifm" path="res://sprites/weapons/Shotgun/ShotgunSheet.png" id="1_qferg"]
+[ext_resource type="AudioStream" uid="uid://cse7teh01cha" path="res://sounds/weapons/shotgun1.wav" id="2_8elcy"]
+
+[sub_resource type="GDScript" id="GDScript_pjg48"]
+script/source = "extends Node3D
+
+@onready var shotgun_anim = $CanvasLayer/GunBase/Shotgun2D/ShotgunAnim
+
+@onready var gun_rays = $GunRays.get_children()
+@onready var shoot_sound = $ShootSound
+@onready var ray_cast_3d = $GunRays/RayCast3D
+@onready var flash = preload(\"res://scenes/special/muzzle_flash.tscn\")
+
+var damage = 4
+var can_shoot = true
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	shotgun_anim.play(\"ShotgunIdle\")
+
+func check_hit():
+	for ray in gun_rays:
+		if ray.is_colliding() and ray.get_collider().has_method(\"kill\"):
+			ray.get_collider().kill(damage)
+
+func make_flash():
+	var f = flash.instantiate()
+	add_child(f)
+
+func _process(_delta):
+	if Input.is_action_just_pressed(\"shoot\") and can_shoot:
+		shotgun_anim.play(\"ShotgunShoot\")
+		shoot_sound.play()
+		make_flash()
+		check_hit()
+		can_shoot = false
+		
+		await(shotgun_anim.animation_finished)
+		can_shoot = true
+		shotgun_anim.play(\"ShotgunIdle\")
+		
+		
+"
+
+[sub_resource type="Animation" id="Animation_5685b"]
+resource_name = "ShotgunIdle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_go73w"]
+resource_name = "ShotgunShoot"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v6kqt"]
+_data = {
+"ShotgunIdle": SubResource("Animation_5685b"),
+"ShotgunShoot": SubResource("Animation_go73w")
+}
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_02gh7"]
+size = Vector2(24, 24)
+
+[node name="Shotgun" type="Node3D"]
+script = SubResource("GDScript_pjg48")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GunBase" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Shotgun2D" type="Sprite2D" parent="CanvasLayer/GunBase"]
+texture_filter = 1
+position = Vector2(52, -249)
+scale = Vector2(2.25647, 2.25647)
+texture = ExtResource("1_qferg")
+hframes = 2
+
+[node name="ShotgunAnim" type="AnimationPlayer" parent="CanvasLayer/GunBase/Shotgun2D"]
+libraries = {
+"": SubResource("AnimationLibrary_v6kqt")
+}
+autoplay = "ShotgunIdle"
+
+[node name="CrossHair" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -13.0
+offset_top = -13.0
+offset_right = 13.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.564706)
+metadata/_edit_use_anchors_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="CanvasLayer"]
+position = Vector2(819, 482)
+energy = 12.15
+blend_mode = 2
+shadow_enabled = true
+shadow_filter = 1
+texture = SubResource("PlaceholderTexture2D_02gh7")
+
+[node name="GunRays" type="Node3D" parent="."]
+
+[node name="RayCast3D" type="RayCast3D" parent="GunRays"]
+target_position = Vector3(0, 0, -5)
+collision_mask = 3
+debug_shape_custom_color = Color(0.960784, 0.741176, 0, 0.584314)
+debug_shape_thickness = 1
+
+[node name="RayCast3D2" type="RayCast3D" parent="GunRays"]
+transform = Transform3D(0.994522, 0.0109262, 0.103956, 0, 0.994522, -0.104528, -0.104528, 0.103956, 0.989074, 0, 0, 0)
+target_position = Vector3(0, 0, -5)
+collision_mask = 3
+debug_shape_custom_color = Color(0.960784, 0.741176, 0, 0.584314)
+
+[node name="RayCast3D3" type="RayCast3D" parent="GunRays"]
+transform = Transform3D(0.994522, -0.0109262, -0.103956, 0, 0.994522, -0.104528, 0.104528, 0.103956, 0.989074, 0, 0, 0)
+target_position = Vector3(0, 0, -5)
+collision_mask = 3
+debug_shape_custom_color = Color(0.960784, 0.741176, 0, 0.584314)
+
+[node name="RayCast3D4" type="RayCast3D" parent="GunRays"]
+transform = Transform3D(0.994522, -0.0109262, 0.103956, 0, 0.994522, 0.104528, -0.104528, -0.103956, 0.989074, 0, 0, 0)
+target_position = Vector3(0, 0, -5)
+collision_mask = 3
+debug_shape_custom_color = Color(0.960784, 0.741176, 0, 0.584314)
+
+[node name="RayCast3D5" type="RayCast3D" parent="GunRays"]
+transform = Transform3D(0.994522, 0.0109262, -0.103956, 0, 0.994522, 0.104528, 0.104528, -0.103956, 0.989074, 0, 0, 0)
+target_position = Vector3(0, 0, -5)
+collision_mask = 3
+debug_shape_custom_color = Color(0.960784, 0.741176, 0, 0.584314)
+
+[node name="ShootSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_8elcy")
+panning_strength = 0.0
+bus = &"SFX"
