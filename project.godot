@@ -50,6 +50,7 @@ variables={
 "yes!": false
 },
 "sales_toiletbrush": {
+"key_name": "",
 "toiletbrush": false,
 "whatyougot": false
 }

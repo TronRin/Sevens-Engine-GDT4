@@ -5,6 +5,18 @@ var talked_to_sales = false
 signal toilet_brush
 @export var brushgot = ""
 var after_tbrush = false
+
+var dialogue_map = {
+	"has_no_tbrush": {
+		"dialogue": "sales_toiletbrush",
+		"action": Callable(self, "_handle_no_tbrush")
+	},
+	"has_tbrush": {
+		"dialogue": "sales_aftertbrush",
+		"action": Callable(self, "_handle_has_tbrush")
+	}
+}
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
@@ -18,20 +30,30 @@ func _process(_delta):
 	pass
 
 func talk_with_sales():
-	if after_tbrush != true:
-		# check if a dialog is already running
-		if Dialogic.current_timeline != null:
+	var current_state = get_current_state()
+	if dialogue_map.has(current_state):
+		var dialogue_data = dialogue_map[current_state]
+		if Dialogic.current_timeline!= null:
 			return
-		Dialogic.start('sales_toiletbrush')
+		Dialogic.start(dialogue_data["dialogue"])
 		get_viewport().set_input_as_handled()
-		var key_name = "toilet_brush"
-		Inventory.inventory.append(key_name)
-		toilet_brush.emit()
-		after_tbrush = true
-		print("You have the fukken brush!!!")
-	if after_tbrush == true:
-		if Dialogic.current_timeline != null:
-			return
-		Dialogic.start('sales_aftertbrush')
+		dialogue_data["action"].call()
+
+func get_current_state():
+	if not after_tbrush:
+		return "has_no_tbrush"
+	elif after_tbrush:
+		return "has_tbrush"
+
+func _handle_no_tbrush():
+	print("Talked with Salesman!")
+	
+	after_tbrush = true
+	var key_name = "toilet_brush"
+	Inventory.inventory.append(key_name)
+	
+func _handle_has_tbrush():
+	print("You already have the Toilet Brush!")
+	
 
 
