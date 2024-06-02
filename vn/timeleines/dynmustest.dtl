@@ -1,0 +1,13 @@
+This is a test of a dynamic music system, choose an option and let's get on with it!
+- ARP
+	do MusicManagerHandler.play_music_layer("arp")
+- BASS
+	do MusicManagerHandler.play_music_layer("bass")
+- CELLO
+	do MusicManagerHandler.play_music_layer("cello")
+- TAIKO
+	do MusicManagerHandler.play_music_layer("taiko")
+- TIMPANI
+	do MusicManagerHandler.play_music_layer("timpani")
+- Exit
+	[end_timeline]

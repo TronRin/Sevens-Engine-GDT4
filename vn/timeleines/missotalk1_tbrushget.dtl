@@ -3,7 +3,7 @@ Ovelia (default/normal): So... did you get it?
 Ovelia (default/mischevious): Oh...[pause=1.1!] You actually did, huh.
 do QuestSystem.update_checklist_item("quest_1", "checklist_1", "item_2", true)
 do QuestList.tbrush_quest_completion()
-Ovelia (default/excited evil grin): Come on, so what did he take as payment, hmm? Give us all the gory details? A weirdo like him must have had some sort of weirdo way of payment, right?
+Ovelia (default/excited evil grin): Come on, so what did he take as payment, hmm? Give us all the gory details! A weirdo like him must have had some sort of weirdo way of payment, right?
 Ovelia (default/normal): Nothing?![pause=0.85!] He just gave it to you for free?!
 Ovelia (default/normal): Boooooooring.
 Ovelia (default/excited evil grin): Still, I guess now Hans can finally get to scrubbing. So...[pause=0.85!] thanks, my lovely servant.

@@ -1,3 +1,3 @@
-join Ovelia (default/normal) 1
-Ovelia (default/normal): Hm? We do not need you right now. We'll let you know when you're needed. Shoo.
+join Ovelia (default/normal) 1 [animation="Bounce In" wait="true"]
+Ovelia (default/normal): Hm? We do not need you right now. We will let you know when your aid will be required. Shoo.
 [end_timeline]

@@ -1,8 +1,8 @@
-[gd_scene load_steps=67 format=3 uid="uid://v0ubulwsbh5f"]
+[gd_scene load_steps=68 format=3 uid="uid://v0ubulwsbh5f"]
 
+[ext_resource type="Script" path="res://world.gd" id="1_0bnyn"]
 [ext_resource type="PackedScene" uid="uid://dti53twova3qk" path="res://scenes/players/player.tscn" id="1_ofo48"]
 [ext_resource type="Material" uid="uid://dn25a8tvfgckp" path="res://textures/checkers.tres" id="3_gxr3y"]
-[ext_resource type="AudioStream" uid="uid://dafylxdxfidq5" path="res://sounds/BGM/bgm_e1m1.ogg" id="4_e64jx"]
 [ext_resource type="Script" path="res://addons/func_godot/src/map/func_godot_map.gd" id="4_s706p"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="5_51wst"]
 [ext_resource type="Material" uid="uid://dtfbnq1wehdua" path="res://textures/pixel-0035-3706432464.tres" id="6_3ygwx"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://ckwwbh7okvfsj" path="res://vn/sprites/ovelia/char_o_smug4_result.png" id="24_j4r74"]
 [ext_resource type="Texture2D" uid="uid://bvs6lmlvei1o0" path="res://vn/sprites/ovelia/char_o_smug1-talk2_result.png" id="25_mkn6i"]
 [ext_resource type="Texture2D" uid="uid://coerfix121dxp" path="res://vn/sprites/ovelia/char_o_smug1-talk3_result.png" id="26_ibqdq"]
+[ext_resource type="PackedScene" uid="uid://d0fvitd7t82kr" path="res://sounds/BGM/dynmustest/musictest.tscn" id="27_b16hb"]
 [ext_resource type="PackedScene" uid="uid://cw0i4mixus1qf" path="res://vn/chars/salesman/Salesman.tscn" id="27_npjkx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_strmk"]
@@ -324,6 +325,7 @@ animations = [{
 size = Vector3(8.665, 22.49, 0.68)
 
 [node name="World" type="Node3D"]
+script = ExtResource("1_0bnyn")
 
 [node name="Environement" type="Node3D" parent="."]
 
@@ -477,15 +479,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.2913, 0.312018, 39.0972)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.404131, 0.42481, 0.170647)
 script = ExtResource("21_chxb7")
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -99.8231, -0.733454, -79.3029)
-stream = ExtResource("4_e64jx")
-attenuation_model = 3
-volume_db = -6.886
-autoplay = true
-panning_strength = 0.0
-bus = &"BGM"
-
 [node name="blue_key_machine" parent="." instance=ExtResource("14_7ip6y")]
 
 [node name="Key" parent="." instance=ExtResource("15_0cljt")]
@@ -520,5 +513,8 @@ collision_layer = 7
 collision_mask = 15
 
 [node name="ToiletBrushQuest" type="Node" parent="."]
+
+[node name="MusicTest" parent="." instance=ExtResource("27_b16hb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.9904, 1.30385, 30.0956)
 
 [connection signal="blue_key_signal" from="Key" to="Player" method="_on_key_blue_key_signal"]

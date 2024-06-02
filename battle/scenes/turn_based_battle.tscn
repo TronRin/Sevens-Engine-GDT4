@@ -1,25 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://c0psn6pfuhat7"]
+[gd_scene load_steps=9 format=3 uid="uid://c0psn6pfuhat7"]
 
 [ext_resource type="Script" path="res://battle/scenes/turn_based_battle.gd" id="1_2pcjb"]
 [ext_resource type="PackedScene" uid="uid://c1wxvjxlk08nm" path="res://battle/scenes/test.blend" id="1_g4y0i"]
-[ext_resource type="Texture2D" uid="uid://bhmw3e1npbluk" path="res://battle/sprites/test/$000-AliciaHD1.png" id="3_4sy5m"]
-[ext_resource type="Script" path="res://battle/scenes/PlayerCharacter.gd" id="3_8nwof"]
+[ext_resource type="PackedScene" uid="uid://d0fvitd7t82kr" path="res://sounds/BGM/dynmustest/musictest.tscn" id="3_fm25c"]
 [ext_resource type="Texture2D" uid="uid://bhwimwlb4rimm" path="res://battle/sprites/test/$000-OveliaHD-In-Control.png" id="3_qyy7u"]
 [ext_resource type="Script" path="res://battle/scenes/EnemyCharacter.gd" id="5_c4x87"]
 [ext_resource type="Script" path="res://battle/scenes/DamageCalculator.gd" id="7_57tkh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tl73w"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_opxj7"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_4sy5m")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e2tg7"]
 animations = [{
@@ -32,9 +20,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="TurnBasedBattle" type="Node3D" node_paths=PackedStringArray("player_character", "enemy_character", "menu", "attack_button", "run_button")]
+[node name="TurnBasedBattle" type="Node3D" node_paths=PackedStringArray("enemy_character", "menu", "attack_button", "run_button")]
 script = ExtResource("1_2pcjb")
-player_character = NodePath("PlayerCharacter")
 enemy_character = NodePath("EnemyCharacter")
 menu = NodePath("BattleGUI")
 attack_button = NodePath("BattleGUI/AttackButton")
@@ -89,22 +76,7 @@ light_volumetric_fog_energy = 3.944
 light_angular_distance = 24.48
 light_bake_mode = 1
 
-[node name="PlayerCharacter" type="CharacterBody3D" parent="." node_paths=PackedStringArray("target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4601, 2.71059, 0)
-script = ExtResource("3_8nwof")
-mov_speed = 200.0
-stop_distance = 0.05
-target = NodePath("../EnemyCharacter")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCharacter"]
-shape = SubResource("CapsuleShape3D_tl73w")
-
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="PlayerCharacter"]
-pixel_size = 0.005
-billboard = 2
-texture_filter = 0
-sprite_frames = SubResource("SpriteFrames_opxj7")
-autoplay = "default"
+[node name="PlayerCharacter" parent="." instance=ExtResource("3_fm25c")]
 
 [node name="EnemyCharacter" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.73154, 2.88236, -0.111271)

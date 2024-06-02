@@ -16,6 +16,10 @@ config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 run/max_fps=60
 config/icon="res://icon.svg"
 
+[audio]
+
+driver/mix_rate=48000
+
 [autoload]
 
 Inventory="*res://scripts/inventory.gd"
@@ -24,6 +28,8 @@ EventList="*res://quests/EventList.gd"
 QuestSystem="*res://quests/QuestSystem.gd"
 Quest="*res://quests/Quest.gd"
 QuestList="*res://quests/testq/QuestList.gd"
+MusicManager="res://scripts/MusicManager.gd"
+MusicManagerHandler="*res://sounds/BGM/dynmustest/music_manager_handler.tscn"
 OveliaAnimHandler="*res://vn/chars/OveliaAnimHandler.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
@@ -35,6 +41,7 @@ directories/dch_directory={
 "unit_test_character": "res://Tests/Resources/unit_test_character.dch"
 }
 directories/dtl_directory={
+"dynmustest": "res://vn/timeleines/dynmustest.dtl",
 "missotalk1": "res://vn/timeleines/missotalk1.dtl",
 "missotalk1_tbrushcomplete": "res://vn/timeleines/missotalk1_tbrushcomplete.dtl",
 "missotalk1_tbrushget": "res://vn/timeleines/missotalk1_tbrushget.dtl",
