@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 Inventory="*res://scripts/inventory.gd"
+EventManager="*res://quests/EventManager.gd"
+EventList="*res://quests/EventList.gd"
 QuestSystem="*res://quests/QuestSystem.gd"
 Quest="*res://quests/Quest.gd"
 QuestList="*res://quests/testq/QuestList.gd"
