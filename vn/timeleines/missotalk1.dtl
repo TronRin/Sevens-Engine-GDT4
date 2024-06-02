@@ -3,8 +3,8 @@ Ovelia (default/normal): Hello, slav- We mean, our new toy-that-we-will-break-mo
 Ovelia (default/evil grin): We have a job for you, as a matter of fact.
 - Yes! [if {missotalk1.yes!} != true][else="hide"]
 	set {missotalk1.yes!} = true
-	[signal arg="scrub_accept"]
-- No! [if {missotalk1.no!} != true][else="hide"]
+	do QuestList.toilet_brush_q()
+- No! [if {missotalk1.no!} != true or {missotalk1.yes!} != true][else="hide"]
 	set {missotalk1.no!} = true
 if {missotalk1.yes!} == true:
 	Ovelia (default/nyoron): Oh goodie. You're quite an eager piggie, huh?

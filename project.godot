@@ -19,6 +19,9 @@ config/icon="res://icon.svg"
 [autoload]
 
 Inventory="*res://scripts/inventory.gd"
+QuestSystem="*res://quests/QuestSystem.gd"
+Quest="*res://quests/Quest.gd"
+QuestList="*res://quests/testq/QuestList.gd"
 OveliaAnimHandler="*res://vn/chars/OveliaAnimHandler.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
@@ -31,6 +34,7 @@ directories/dch_directory={
 }
 directories/dtl_directory={
 "missotalk1": "res://vn/timeleines/missotalk1.dtl",
+"missotalk1_tbrushcomplete": "res://vn/timeleines/missotalk1_tbrushcomplete.dtl",
 "missotalk1_tbrushget": "res://vn/timeleines/missotalk1_tbrushget.dtl",
 "sales_aftertbrush": "res://vn/timeleines/sales_aftertbrush.dtl",
 "sales_toiletbrush": "res://vn/timeleines/sales_toiletbrush.dtl"

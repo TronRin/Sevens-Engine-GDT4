@@ -28,7 +28,10 @@ func talk_with_sales():
 		Inventory.inventory.append(key_name)
 		toilet_brush.emit()
 		after_tbrush = true
+		print("You have the fukken brush!!!")
 	if after_tbrush == true:
 		if Dialogic.current_timeline != null:
 			return
 		Dialogic.start('sales_aftertbrush')
+
+

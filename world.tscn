@@ -1,7 +1,6 @@
-[gd_scene load_steps=68 format=3 uid="uid://v0ubulwsbh5f"]
+[gd_scene load_steps=67 format=3 uid="uid://v0ubulwsbh5f"]
 
 [ext_resource type="PackedScene" uid="uid://dti53twova3qk" path="res://scenes/players/player.tscn" id="1_ofo48"]
-[ext_resource type="Script" path="res://world.gd" id="1_uif08"]
 [ext_resource type="Material" uid="uid://dn25a8tvfgckp" path="res://textures/checkers.tres" id="3_gxr3y"]
 [ext_resource type="AudioStream" uid="uid://dafylxdxfidq5" path="res://sounds/BGM/bgm_e1m1.ogg" id="4_e64jx"]
 [ext_resource type="Script" path="res://addons/func_godot/src/map/func_godot_map.gd" id="4_s706p"]
@@ -325,7 +324,6 @@ animations = [{
 size = Vector3(8.665, 22.49, 0.68)
 
 [node name="World" type="Node3D"]
-script = ExtResource("1_uif08")
 
 [node name="Environement" type="Node3D" parent="."]
 
@@ -520,5 +518,7 @@ shape = SubResource("BoxShape3D_df6m7")
 transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 19.7454, 1.22648, 23.1188)
 collision_layer = 7
 collision_mask = 15
+
+[node name="ToiletBrushQuest" type="Node" parent="."]
 
 [connection signal="blue_key_signal" from="Key" to="Player" method="_on_key_blue_key_signal"]
