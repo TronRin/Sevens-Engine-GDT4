@@ -1,0 +1,13 @@
+join "The Creepy Salesman" 1
+"The Creepy Salesman": Hee[pause=0.6!] hee.[pause=0.6!] So you finally decided to give the good ol' salesman a spin![pause=1.0!] Whatchu' buyin'?
+- Toilet Brush... [if {sales_toiletbrush.toiletbrush} == false][else="hide"]
+	set {sales_toiletbrush.toiletbrush} = true
+- What do you have? [if {sales_toiletbrush.whatyougot} == false or {sales_toiletbrush.toiletbrush} == true][else="hide"]
+	set {sales_toiletbrush.whatyougot} = true
+if {sales_toiletbrush.toiletbrush} == true:
+	"The Creepy Salesman": A toilet brush?[pause=1.2!] Hee[pause=0.6!] hee.[pause=0.6!] Now that's a request I did not expect.
+	"The Creepy Salesman": Don't fret, my friend. I gotchu' back...[pause=2.0!] Here you go, it's a freebie. Take it... [pause=0.6!] Hee[pause=0.6!] hee.[pause=0.6!] cuz' why not, right?
+	[end_timeline]
+elif {sales_toiletbrush.whatyougot} == true:
+	"The Creepy Salesman": Nuttin' for the undecisive ones. Come back later.
+	[end_timeline]

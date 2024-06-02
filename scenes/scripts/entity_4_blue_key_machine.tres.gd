@@ -42,8 +42,8 @@ func _open_door():
 func _on_button_pressed():
 	_open_door()
 
-func has_key(key_name : String) -> bool:
-	return key_name in Inventory.inventory
+func has_key(key : String) -> bool:
+	return key in Inventory.inventory
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass

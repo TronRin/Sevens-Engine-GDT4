@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cw0i4mixus1qf"]
+
+[ext_resource type="Texture2D" uid="uid://bmg8vp1i3wq2b" path="res://vn/sprites/salesman/sales_default_result.png" id="1_eueb1"]
+[ext_resource type="Script" path="res://vn/chars/salesman/Salesman.gd" id="1_slp6f"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fwol7"]
+size = Vector3(2.14789, 5.11435, 0.690552)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rg71a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_eueb1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Salesman" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.73525, 0)
+script = ExtResource("1_slp6f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0294495, 0.0767059, -0.154724)
+shape = SubResource("BoxShape3D_fwol7")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+billboard = 2
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_rg71a")
+animation = &"idle"

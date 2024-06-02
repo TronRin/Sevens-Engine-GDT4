@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://bu6l2mevlv152" path="res://sounds/enemy/humanzombiedeath1.wav" id="4_e3k5p"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3etmu"]
+radius = 0.3
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_p4hro"]
 animations = [{

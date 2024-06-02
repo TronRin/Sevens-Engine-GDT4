@@ -1,0 +1,19 @@
+join Ovelia 1 [animation="Bounce In" wait="true"]
+Ovelia (default/normal): Hello, slav- We mean, our new toy-that-we-will-break-most-likely.
+Ovelia (default/evil grin): We have a job for you, as a matter of fact.
+- Yes! [if {missotalk1.yes!} != true][else="hide"]
+	set {missotalk1.yes!} = true
+	[signal arg="scrub_accept"]
+- No! [if {missotalk1.no!} != true][else="hide"]
+	set {missotalk1.no!} = true
+if {missotalk1.yes!} == true:
+	Ovelia (default/nyoron): Oh goodie. You're quite an eager piggie, huh?
+	Ovelia (default/mischevious): The toilets need a good scrubbing... [pause=1.0!][portrait=default/normal]Don't make that face, Hans will be the scrubber, not you.
+	Ovelia (default/normal): However...[pause=0.7!] We believe the toilet brush is broken in half.[pause=2.0!][portrait=default/mischevious] We absolutely had nothing to do with that...[pause=1.5!][portrait=default/nyoron] yeaaaahhh.
+	Ovelia (default/normal): Since it is broken, we want you to get us a replacement. [pause=0.75!]Maybe that annoying salesman fellow has one.[pause=1.5!] He claims to be universal, no?
+	Ovelia (default/normal): Well then... [pause=2.0!][portrait=default/mischevious]
+	Ovelia (default/excited evil grin): Get to it.
+	[end_timeline]
+elif {missotalk1.no!} == true:
+	Ovelia (default/excited evil grin): How about we slice your throat with our nails and we'll see what color is your blood? Well, it's gonna be red, but let us do it anyway!
+	[end_timeline]

@@ -1,0 +1,101 @@
+{
+"@path": "res://addons/dialogic/Resources/character.gd",
+"@subpath": NodePath(""),
+"_translation_id": "",
+"color": Color(1, 1, 1, 1),
+"custom_info": {
+"sound_mood_default": "",
+"sound_moods": {
+"Exstatic": {
+"mode": 0,
+"name": "Exstatic",
+"pitch_base": 1.0,
+"pitch_variance": 0.0,
+"skip_characters": 0.0,
+"sound_path": "res://vn/voices/ovelia",
+"volume_base": -0.5,
+"volume_variance": 0.0
+}
+},
+"style": ""
+},
+"default_portrait": "default/normal",
+"description": "",
+"display_name": "Miss O",
+"mirror": false,
+"nicknames": [""],
+"offset": Vector2(0, 0),
+"portraits": {
+"default/evil grin": {
+"export_overrides": {
+"image": "\"res://vn/sprites/ovelia/expressions/misso_default_evilgrin_result.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 0),
+"scale": 1,
+"scene": "",
+"sound_mood": "Exstatic"
+},
+"default/excited evil grin": {
+"export_overrides": {
+"image": "\"res://vn/sprites/ovelia/expressions/misso_default_excited_evil_result.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 0),
+"scale": 1,
+"scene": "",
+"sound_mood": "Exstatic"
+},
+"default/excited mischevious": {
+"export_overrides": {
+"image": "\"res://vn/sprites/ovelia/expressions/misso_default_excited_mischevious_result.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 0),
+"scale": 1,
+"scene": "",
+"sound_mood": "Exstatic"
+},
+"default/mischevious": {
+"export_overrides": {
+"image": "\"res://vn/sprites/ovelia/expressions/misso_default_mischevious_result.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 0),
+"scale": 1,
+"scene": "",
+"sound_mood": "Exstatic"
+},
+"default/normal": {
+"export_overrides": {
+"image": "\"res://vn/sprites/ovelia/expressions/misso_default_normal_result.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 0),
+"scale": 1,
+"scene": "",
+"sound_mood": "Exstatic"
+},
+"default/normal excited": {
+"export_overrides": {
+"image": "\"res://vn/sprites/ovelia/expressions/misso_default_excited_normal_result.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 0),
+"scale": 1,
+"scene": "",
+"sound_mood": "Exstatic"
+},
+"default/nyoron": {
+"export_overrides": {
+"image": "\"res://vn/sprites/ovelia/expressions/misso_default_nyoron_result.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 0),
+"scale": 1,
+"scene": "",
+"sound_mood": "Exstatic"
+}
+},
+"scale": 1.0
+}
