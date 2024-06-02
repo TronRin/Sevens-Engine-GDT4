@@ -11,6 +11,7 @@ func _init():
 func _ready():
 	pass
 func toilet_brush_q():
+	print("tbrush quest is called correctly.")
 	QuestSystem.add_quest("quest_1", "The Toilet Brush", "Obtain a Toilet Brush from the Salesman.", {
 		"checklist_1": [
 			{"id": "item_1", "description": "Talk to Salesman.", "completed": false},

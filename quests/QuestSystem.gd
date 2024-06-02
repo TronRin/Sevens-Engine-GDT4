@@ -49,26 +49,30 @@ func is_quest_not_started(quest_id):
 func is_checklist_item_completed(quest_id, checklist_id, item_id):
 	if quests.has(quest_id):
 		var checklist = quests[quest_id]["checklists"][checklist_id]
-		if checklist.has(item_id):
-			return checklist[item_id]["completed"]
+		for item in checklist:
+			if item["id"] == item_id:
+				return item["completed"]
 	return false
 
 # Function to update a checklist item
 func update_checklist_item(quest_id, checklist_id, item_id, completed):
 	if quests.has(quest_id):
 		var checklist = quests[quest_id]["checklists"][checklist_id]
-		if checklist.has(item_id):
-			checklist[item_id]["completed"] = completed
-			# Check if all items in the checklist are completed
-			var all_completed = true
-			for item in checklist.values():
-				if!item["completed"]:
-					all_completed = false
-					break
-			if all_completed:
-				update_quest_status(quest_id, "completed")
+		for i in range(checklist.size()):
+			if checklist[i]["id"] == item_id:
+				checklist[i]["completed"] = completed
+				break
+		# Check if all items in the checklist are completed
+		var all_completed = true
+		for item in checklist:
+			if!item["completed"]:
+				all_completed = false
+				break
+		if all_completed:
+			update_quest_status(quest_id, "completed")
 
 func _ready():
+	# Initialize the quest system
 	pass
 
 

@@ -30,11 +30,11 @@ func talk_with_o():
 		get_viewport().set_input_as_handled()
 		tbrush_complete = true
 		print("Gave that bitch the Toilet Brush!")
-		if tbrush_complete == true:
-			if Dialogic.current_timeline != null:
-				return
-			Dialogic.start('missotalk1_tbrushcomplete')
-			get_viewport().set_input_as_handled()		
+	if tbrush_complete == true:
+		if Dialogic.current_timeline != null:
+			return
+		Dialogic.start('missotalk1_tbrushcomplete')
+		get_viewport().set_input_as_handled()		
 	#if Dialogic.connect("o_talk", Callable()):
 		#$AnimatedSprite3D.play("talk")
 	#elif Dialogic.connect("o_idle", Callable()):

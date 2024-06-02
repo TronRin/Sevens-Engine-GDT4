@@ -163,7 +163,7 @@ func realize_inheritance() -> void:
 	var _layers: Array[DialogicStyleLayer] = []
 	for i in range(get_layer_count()):
 		var info := get_layer_inherited_info(i)
-		_layers.append(DialogicStyleLayer.new(info.path, info.overrides))
+		_layers.append(DialogicStyleLayer.new(info.get("path", ""), info.get("overrides", {})))
 
 	layers = _layers
 	inherits = null
@@ -174,7 +174,7 @@ func clone() -> DialogicStyle:
 	var style := DialogicStyle.new()
 	style.name = name
 	if base_scene != null:
-		style.base_scene = base_scene.duplicate()
+		style.base_scene = base_scene
 	style.inherits = inherits
 	style.base_overrides = base_overrides
 	for layer_idx in range(get_layer_count()):

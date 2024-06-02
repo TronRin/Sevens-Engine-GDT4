@@ -14,7 +14,7 @@ var end_node: Node = null:
 		return end_node
 	set(node):
 		end_node = node
-		%CollapseButton.visible = true if end_node else false
+		%ToggleChildrenVisibilityButton.visible = true if end_node else false
 
 
 ## FLAGS
@@ -63,8 +63,10 @@ func initialize_ui() -> void:
 	%Warning.position = Vector2(-5 * _scale, -10 * _scale)
 
 	# Expand Button
-	%ExpandButton.icon = get_theme_icon("CodeFoldedRightArrow", "EditorIcons")
-	%ExpandButton.modulate = get_theme_color("readonly_color", "Editor")
+	%ToggleBodyVisibilityButton.icon = get_theme_icon("CodeFoldedRightArrow", "EditorIcons")
+	%ToggleBodyVisibilityButton.modulate = get_theme_color("contrast_color_1", "Editor")
+	%ToggleBodyVisibilityButton.set("theme_override_colors/icon_normal_color", get_theme_color("contrast_color_1", "Editor"))
+	%ToggleBodyVisibilityButton.set("theme_override_colors/icon_pressed_color", get_theme_color("contrast_color_1", "Editor"))
 
 	# Icon Panel
 	%IconPanel.tooltip_text = resource.event_name
@@ -86,9 +88,9 @@ func initialize_ui() -> void:
 	%Header.add_theme_constant_override("custom_constants/separation", 5 * _scale)
 
 	# Collapse Button
-	%CollapseButton.toggled.connect(_on_collapse_toggled)
-	%CollapseButton.icon = get_theme_icon("Collapse", "EditorIcons")
-	%CollapseButton.hide()
+	%ToggleChildrenVisibilityButton.toggled.connect(_on_collapse_toggled)
+	%ToggleChildrenVisibilityButton.icon = get_theme_icon("Collapse", "EditorIcons")
+	%ToggleChildrenVisibilityButton.hide()
 
 	%Body.add_theme_constant_override("margin_left", icon_size * _scale)
 
@@ -103,7 +105,7 @@ func initialize_logic() -> void:
 
 	content_changed.connect(recalculate_field_visibility)
 
-	_on_ExpandButton_toggled(resource.expand_by_default or resource.created_by_button)
+	_on_ToggleBodyVisibility_toggled(resource.expand_by_default or resource.created_by_button)
 
 #endregion
 
@@ -138,7 +140,7 @@ func set_warning(text:String= "") -> void:
 
 
 func set_indent(indent: int) -> void:
-	add_theme_constant_override("margin_left", indent_size*indent*DialogicUtil.get_editor_scale())
+	add_theme_constant_override("margin_left", indent_size * indent * DialogicUtil.get_editor_scale())
 	current_indent_level = indent
 
 #endregion
@@ -160,6 +162,9 @@ var FIELD_SCENES := {
 	DialogicEvent.ValueType.FIXED_OPTIONS	: 	"res://addons/dialogic/Editor/Events/Fields/field_options_fixed.tscn",
 	DialogicEvent.ValueType.NUMBER: 			"res://addons/dialogic/Editor/Events/Fields/field_number.tscn",
 	DialogicEvent.ValueType.VECTOR2: 			"res://addons/dialogic/Editor/Events/Fields/field_vector2.tscn",
+	DialogicEvent.ValueType.VECTOR3: 			"res://addons/dialogic/Editor/Events/Fields/field_vector3.tscn",
+	DialogicEvent.ValueType.VECTOR4: 			"res://addons/dialogic/Editor/Events/Fields/field_vector4.tscn",
+	DialogicEvent.ValueType.COLOR: 				"res://addons/dialogic/Editor/Events/Fields/field_color.tscn"
 	}
 
 func build_editor(build_header:bool = true, build_body:bool = false) ->  void:
@@ -216,7 +221,7 @@ func build_editor(build_header:bool = true, build_body:bool = false) ->  void:
 			else:
 				editor_node.icon = p.display_info.icon
 			editor_node.flat = true
-			editor_node.custom_minimum_size.x = 30*DialogicUtil.get_editor_scale()
+			editor_node.custom_minimum_size.x = 30 * DialogicUtil.get_editor_scale()
 			editor_node.pressed.connect(p.display_info.callable)
 
 		## CUSTOM
@@ -249,7 +254,16 @@ func build_editor(build_header:bool = true, build_body:bool = false) ->  void:
 
 		# Some things need to be called AFTER the field is added to the tree
 		if editor_node is DialogicVisualEditorField:
-			editor_node._set_value(resource.get(p.name))
+			# Only set the value if the field is visible
+			#
+			# This prevents events with varied value types (event_setting, event_variable)
+			# from injecting incorrect types into hidden fields, which then throw errors
+			# in the console.
+			if p.has('condition') and not p.condition.is_empty():
+				if _evaluate_visibility_condition(p):
+					editor_node._set_value(resource.get(p.name))
+			else:
+				editor_node._set_value(resource.get(p.name))
 
 			editor_node.value_changed.connect(set_property)
 
@@ -305,9 +319,7 @@ func recalculate_field_visibility() -> void:
 			if p.location == 1:
 				has_any_enabled_body_content = true
 		else:
-			var expr := Expression.new()
-			expr.parse(p.condition)
-			if expr.execute([], resource):
+			if _evaluate_visibility_condition(p):
 				if p.node != null:
 					p.node.show()
 				if p.location == 1:
@@ -315,9 +327,7 @@ func recalculate_field_visibility() -> void:
 			else:
 				if p.node != null:
 					p.node.hide()
-			if expr.has_execute_failed():
-				printerr("[Dialogic] Failed executing visibility condition for '",p.get('property', 'unnamed'),"': " + expr.get_error_text())
-	%ExpandButton.visible = has_any_enabled_body_content
+	%ToggleBodyVisibilityButton.visible = has_any_enabled_body_content
 
 
 func set_property(property_name:String, value:Variant) -> void:
@@ -327,10 +337,32 @@ func set_property(property_name:String, value:Variant) -> void:
 		end_node.parent_node_changed()
 
 
+func _evaluate_visibility_condition(p: Dictionary) -> bool:
+	var expr := Expression.new()
+	expr.parse(p.condition)
+	var result: bool
+	if expr.execute([], resource):
+		result = true
+	else:
+		result = false
+	if expr.has_execute_failed():
+		printerr("[Dialogic] Failed executing visibility condition for '",p.get('property', 'unnamed'),"': " + expr.get_error_text())
+	return result
+
+
 func _on_resource_ui_update_needed() -> void:
 	for node_info in field_list:
 		if node_info.node and node_info.node.has_method('set_value'):
-			node_info.node.set_value(resource.get(node_info.property))
+			# Only set the value if the field is visible
+			#
+			# This prevents events with varied value types (event_setting, event_variable)
+			# from injecting incorrect types into hidden fields, which then throw errors
+			# in the console.
+			if node_info.has('condition') and not node_info.condition.is_empty():
+				if _evaluate_visibility_condition(node_info):
+					node_info.node.set_value(resource.get(node_info.property))
+			else:
+				node_info.node.set_value(resource.get(node_info.property))
 	recalculate_field_visibility()
 
 
@@ -347,15 +379,15 @@ func _on_collapse_toggled(toggled:bool) -> void:
 
 
 
-func _on_ExpandButton_toggled(button_pressed:bool) -> void:
+func _on_ToggleBodyVisibility_toggled(button_pressed:bool) -> void:
 	if button_pressed and !body_was_build:
 		build_editor(false, true)
-	%ExpandButton.set_pressed_no_signal(button_pressed)
+	%ToggleBodyVisibilityButton.set_pressed_no_signal(button_pressed)
 
 	if button_pressed:
-		%ExpandButton.icon = get_theme_icon("CodeFoldDownArrow", "EditorIcons")
+		%ToggleBodyVisibilityButton.icon = get_theme_icon("CodeFoldDownArrow", "EditorIcons")
 	else:
-		%ExpandButton.icon = get_theme_icon("CodeFoldedRightArrow", "EditorIcons")
+		%ToggleBodyVisibilityButton.icon = get_theme_icon("CodeFoldedRightArrow", "EditorIcons")
 
 	expanded = button_pressed
 	%Body.visible = button_pressed
@@ -369,7 +401,7 @@ func _on_EventNode_gui_input(event:InputEvent) -> void:
 		grab_focus() # Grab focus to avoid copy pasting text or events
 		if event.double_click:
 			if has_any_enabled_body_content:
-				_on_ExpandButton_toggled(!expanded)
+				_on_ToggleBodyVisibility_toggled(!expanded)
 	# For opening the context menu
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:

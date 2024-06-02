@@ -72,6 +72,7 @@ text/input_action="dialogic_default_action"
 history/simple_history_enabled=true
 history/already_read_history_enabled=true
 timer/process_in_physics=true
+text/advance_delay=0.1
 
 [display]
 
