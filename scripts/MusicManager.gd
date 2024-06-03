@@ -164,18 +164,28 @@ func get_current_position(layer_id):
 		return audio_stream_players[layer_id].get_playback_position()
 	return 0.0
 
-func set_music_layer_volume(layer_id, volume: float, fade_time: float = 0.0):
+func set_music_layer_volume(layer_id, volume: float, fade_in_time: float = 0.0, fade_out_time: float = 0.0):
 	if music_layers.has(layer_id) and audio_stream_players.has(layer_id):
 		var audio_stream_player = audio_stream_players[layer_id]
 		var layer = music_layers[layer_id]
 		layer.volume = volume
-		if fade_time == 0.0:
+		if fade_in_time == 0.0:
 			audio_stream_player.volume_db = volume
 		else:
 			#var start_volume = audio_stream_player.volume_db
 			var tween = create_tween()
-			tween.tween_property(audio_stream_player, "volume_db", volume, fade_time)
+			tween.tween_property(audio_stream_player, "volume_db", volume, fade_in_time).set_ease(Tween.EASE_IN)
 			tween.play()
+		
+		if fade_out_time > 0.0 and layer.playing:
+			audio_stream_player.volume_db = volume
+			#var start_volume = audio_stream_player.volume_db
+			var tween = create_tween()
+			tween.tween_property(audio_stream_player, "volume_db", -100.0, fade_out_time).set_ease(Tween.EASE_OUT)
+			tween.play()
+			#await get_tree().create_timer(1.0).timeout
+			#audio_stream_player.stop()
+			#audio_stream_players.erase(layer_id)
 		print("CURRENT VOLUME: ", volume)
 		
 ### We now set functions to load and then play layers in a level. One function per level.

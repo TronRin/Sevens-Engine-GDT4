@@ -8,4 +8,4 @@ func _ready():
 	#MusicManager.add_music_layer("taiko", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_TAIKO.wav"))
 	#MusicManager.add_music_layer("timpani", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_TIMPANI.wav"))
 	MusicManagerHandler.test_layers()
-	MusicManagerHandler.set_music_layer_volume("basic", 0.0, 10.0)
+	MusicManagerHandler.set_music_layer_volume("basic", -3.5, 0.0, 0.0)

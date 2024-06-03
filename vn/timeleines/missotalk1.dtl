@@ -13,9 +13,9 @@ if {missotalk1.yes!} == true:
 	Ovelia (default/normal): Since it is broken, we want you to get us a replacement. [pause=0.75!]Maybe that annoying salesman fellow has one.[pause=1.5!] He claims to be universal, no?
 	Ovelia (default/normal): Well then... [pause=2.0!][portrait=default/mischevious]
 	Ovelia (default/excited evil grin): Get to it.
+	do MusicManagerHandler.set_music_layer_volume("misso", -3.5, 0.0, 10.5)
 	[end_timeline]
-	do MusicManagerHandler.set_music_layer_volume("misso", -100.0)
 elif {missotalk1.no!} == true:
 	Ovelia (default/excited evil grin): How about we slice your throat with our nails and we'll see what color is your blood? Well, it's gonna be red, but let us do it anyway!
+	do MusicManagerHandler.set_music_layer_volume("misso", -3.5, 0.0, 10.5)
 	[end_timeline]
-	do MusicManagerHandler.set_music_layer_volume("misso", -100.0)

@@ -9,9 +9,9 @@ if {sales_toiletbrush.toiletbrush} == true:
 	"The Creepy Salesman": Don't fret, my friend. I gotchu' back...[pause=2.0!] Here you go, it's a freebie. Take it... [pause=0.6!] Hee[pause=0.6!] hee.[pause=0.6!] cuz' why not, right?
 	do QuestSystem.update_checklist_item("quest_1", "checklist_1", "item_1", true)
 	do QuestList.tbrush_quest_completion()
+	do MusicManagerHandler.set_music_layer_volume("sales", -3.5, 0.0, 10.5)
 	[end_timeline]
-	do MusicManagerHandler.set_music_layer_volume("sales", -100.0)
 elif {sales_toiletbrush.whatyougot} == true:
 	"The Creepy Salesman": Nuttin' for the undecisive ones. Come back later.
 	[end_timeline]
-	do MusicManagerHandler.set_music_layer_volume("sales", -100.0)
+	do MusicManagerHandler.set_music_layer_volume("sales", -3.5, 0.0, 10.5)

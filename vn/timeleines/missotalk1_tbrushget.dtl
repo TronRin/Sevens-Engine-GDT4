@@ -8,5 +8,5 @@ Ovelia (default/normal): Nothing?![pause=0.85!] He just gave it to you for free?
 Ovelia (default/normal): Boooooooring.
 Ovelia (default/excited evil grin): Still, I guess now Hans can finally get to scrubbing. So...[pause=0.85!] thanks, my lovely servant.
 Ovelia (default/normal excited): Now go away.
+do MusicManagerHandler.set_music_layer_volume("misso", -3.5, 0.0, 10.5)
 [end_timeline]
-do MusicManagerHandler.set_music_layer_volume("misso", -100.0)
