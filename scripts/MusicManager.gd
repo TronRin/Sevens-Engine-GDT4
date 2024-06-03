@@ -77,6 +77,19 @@ func set_music_layer_volume(layer_id, volume):
 				audio_stream_player.volume_db = volume
 				break
 
+## We now set functions to load and then play layers in a level. One function per level.
+func test_layers():
+	MusicManagerHandler.add_music_layer("arp", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_ARP.ogg"))
+	MusicManagerHandler.add_music_layer("bass", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_BASS.ogg"))
+	MusicManagerHandler.add_music_layer("cello", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_CELLO.ogg"))
+	MusicManagerHandler.add_music_layer("taiko", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_TAIKO.ogg"))
+	MusicManagerHandler.add_music_layer("timpani", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_TIMPANI.ogg"))
+	MusicManagerHandler.play_music_layer("arp")
+	MusicManagerHandler.play_music_layer("bass")
+	MusicManagerHandler.play_music_layer("cello")
+	MusicManagerHandler.play_music_layer("taiko")
+	MusicManagerHandler.play_music_layer("timpani")
+
 ##Example usage:
 #func _ready():
 	#add_music_layer("regular", load("res://music/regular.ogg"))
