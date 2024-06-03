@@ -19,7 +19,8 @@ var dialogue_map = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	if Dialogic.timeline_ended:
+		MusicManagerHandler.set_music_layer_volume("sales", -100.0)
 
 func interact():
 	
@@ -30,6 +31,7 @@ func _process(_delta):
 	pass
 
 func talk_with_sales():
+	MusicManagerHandler.set_music_layer_volume("sales", 0.0)
 	var current_state = get_current_state()
 	if dialogue_map.has(current_state):
 		var dialogue_data = dialogue_map[current_state]
@@ -38,6 +40,7 @@ func talk_with_sales():
 		Dialogic.start(dialogue_data["dialogue"])
 		get_viewport().set_input_as_handled()
 		dialogue_data["action"].call()
+		
 
 func get_current_state():
 	if not after_tbrush:

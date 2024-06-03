@@ -1,3 +1,4 @@
 join Ovelia (default/normal) 1 [animation="Bounce In" wait="true"]
 Ovelia (default/normal): Hm? We do not need you right now. We will let you know when your aid will be required. Shoo.
 [end_timeline]
+do MusicManagerHandler.set_music_layer_volume("misso", -100.0)

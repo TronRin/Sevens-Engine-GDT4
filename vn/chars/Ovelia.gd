@@ -19,7 +19,8 @@ var dialogue_map = {
 }
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	if Dialogic.timeline_ended:
+		MusicManagerHandler.set_music_layer_volume("misso", -100.0)
 	
 func has_key(key : String) -> bool:
 	return key in Inventory.inventory
@@ -31,6 +32,7 @@ func _process(_delta):
 	pass
 
 func talk_with_o():
+	MusicManagerHandler.set_music_layer_volume("misso", 0.0)
 	var current_state = get_current_state()
 	if dialogue_map.has(current_state):
 		var dialogue_data = dialogue_map[current_state]

@@ -14,6 +14,8 @@ if {missotalk1.yes!} == true:
 	Ovelia (default/normal): Well then... [pause=2.0!][portrait=default/mischevious]
 	Ovelia (default/excited evil grin): Get to it.
 	[end_timeline]
+	do MusicManagerHandler.set_music_layer_volume("misso", -100.0)
 elif {missotalk1.no!} == true:
 	Ovelia (default/excited evil grin): How about we slice your throat with our nails and we'll see what color is your blood? Well, it's gonna be red, but let us do it anyway!
 	[end_timeline]
+	do MusicManagerHandler.set_music_layer_volume("misso", -100.0)

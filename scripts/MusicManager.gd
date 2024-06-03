@@ -122,7 +122,7 @@ var audio_stream_players = {}
 func _ready():
 	pass
 
-func add_music_layer(layer_id, song_resource, volume = -100):
+func add_music_layer(layer_id, song_resource, volume = -100.0):
 	music_layers[layer_id] = {
 		"song": song_resource,
 		"volume": volume,
@@ -164,21 +164,29 @@ func get_current_position(layer_id):
 		return audio_stream_players[layer_id].get_playback_position()
 	return 0.0
 
-func set_music_layer_volume(layer_id, volume: int):
+func set_music_layer_volume(layer_id, volume: float, fade_time: float = 0.0):
 	if music_layers.has(layer_id) and audio_stream_players.has(layer_id):
-		audio_stream_players[layer_id].volume_db = volume
-		music_layers[layer_id].volume = volume
-		print("CURRENT VOLUME: ", volume, "CURRENT BUG: ", )
+		var audio_stream_player = audio_stream_players[layer_id]
+		var layer = music_layers[layer_id]
+		layer.volume = volume
+		if fade_time == 0.0:
+			audio_stream_player.volume_db = volume
+		else:
+			#var start_volume = audio_stream_player.volume_db
+			var tween = create_tween()
+			tween.tween_property(audio_stream_player, "volume_db", volume, fade_time)
+			tween.play()
+		print("CURRENT VOLUME: ", volume)
 		
 ### We now set functions to load and then play layers in a level. One function per level.
 func test_layers():
-	MusicManagerHandler.add_music_layer("arp", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_ARP.ogg"), -80.0)
-	MusicManagerHandler.add_music_layer("bass", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_BASS.ogg"), -80.0)
-	MusicManagerHandler.add_music_layer("cello", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_CELLO.ogg"), -80.0)
-	MusicManagerHandler.add_music_layer("taiko", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_TAIKO.ogg"), -80.0)
-	MusicManagerHandler.add_music_layer("timpani", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_TIMPANI.ogg"), -80.0)
-	MusicManagerHandler.play_music_layer("arp")
-	MusicManagerHandler.play_music_layer("bass")
-	MusicManagerHandler.play_music_layer("cello")
-	MusicManagerHandler.play_music_layer("taiko")
-	MusicManagerHandler.play_music_layer("timpani")
+	MusicManagerHandler.add_music_layer("basic", load("res://sounds/BGM/lobby/bgm_lobby_basic.ogg"), -100.0)
+	MusicManagerHandler.add_music_layer("misso", load("res://sounds/BGM/lobby/bgm_lobby_misso.ogg"), -100.0)
+	MusicManagerHandler.add_music_layer("sales", load("res://sounds/BGM/lobby/bgm_lobby_sales.ogg"), -100.0)
+	#MusicManagerHandler.add_music_layer("taiko", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_TAIKO.ogg"), -80.0)
+	#MusicManagerHandler.add_music_layer("timpani", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_TIMPANI.ogg"), -80.0)
+	MusicManagerHandler.play_music_layer("basic")
+	MusicManagerHandler.play_music_layer("misso")
+	MusicManagerHandler.play_music_layer("sales")
+	#MusicManagerHandler.play_music_layer("taiko")
+	#MusicManagerHandler.play_music_layer("timpani")
