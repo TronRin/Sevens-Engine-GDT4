@@ -1,119 +1,56 @@
-##MusicManager.gd (autoload script) old
-#
-#extends Node
-#
-#@onready var music_layers = {}
-#
-#var audio_stream_player
-#
-#var current_music_state = {}
-#
-#var audio_stream_players = []
-#
-#func _ready():
-	#for i in range(16):
-		##audio_stream_player = AudioStreamPlayer.new()
-		##add_child(audio_stream_player)
-		##audio_stream_players.append(audio_stream_player)
-		##audio_stream_player.stream = music_layers[]
-	#pass
-	#
-#
-#func add_music_layer(layer_id, song_resource, volume = -100):
-	#music_layers[layer_id] = {
-		#"song": song_resource,
-		#"volume": volume,
-		#"playing": false,
-		#"position": 0.0
-	#}
-#
-#
-#func play_music_layer(layer_id):
-	#audio_stream_player = AudioStreamPlayer.new()
-	#add_child(audio_stream_player)
-	#audio_stream_players.append(audio_stream_player)
-	#var layer = music_layers[layer_id]
-	#layer.playing = true
-	#var current_position = 0.0
-	#for audio_stream_player in audio_stream_players:
-		#if audio_stream_player.playing:
-			#current_position = audio_stream_player.get_playback_position()
-			#break
-	#layer.position = current_position
-	#var audio_stream_player = audio_stream_players.pop_back()
-	#audio_stream_player.set_bus("BGM")
-	#print(audio_stream_player.get_bus(), music_layers)
-	#audio_stream_player.stream = layer.song
-	#audio_stream_player.volume_db = layer.volume
-	#audio_stream_player.seek(layer.position)
-	#audio_stream_player.play()
-#
-#
-#func stop_music_layer(layer_id):
-	#if music_layers.has(layer_id):
-		#var layer = music_layers[layer_id]
-		#layer.playing = false
-		#for audio_stream_player in audio_stream_players:
-			#if audio_stream_player.stream == layer.song:
-				#audio_stream_player.stop()
-				#audio_stream_players.erase(audio_stream_player)
-				#break
-#
-#func _process(delta):
-	#pass
-	#for layer in music_layers.values():
-		#if layer.playing:
-			#layer.position += delta
-			#if layer.position >= layer.song.get_length():
-				#layer.position = 0.0
-			#for audio_stream_player in audio_stream_players:
-				#if audio_stream_player.stream == layer.song:
-					#audio_stream_player.seek(layer.position)
-					#break
-#
-#func get_current_position():
-	#return audio_stream_players[0].get_playback_position()
-#
-#func set_music_layer_volume(layer_id, volume: int):
-	#if music_layers.has(layer_id):
-		#var layer = music_layers[layer_id]
-		#if audio_stream_player.stream == layer.song:
-			#audio_stream_player.volume_db = volume
-			#print("CURRENT VOLUME: ", volume)
-#
-#
-##func set_music_layer_volume(layer_id, volume):
-	##if music_layers.has(layer_id) and music_layers.has(volume):
-		##music_layers[volume].volume = volume
-		##for audio_stream_player in audio_stream_players:
-			##if audio_stream_player.stream == music_layers[layer_id].song:
-				##audio_stream_player.volume_db = volume
-				##break
-#
-### We now set functions to load and then play layers in a level. One function per level.
-#func test_layers():
-	#MusicManagerHandler.add_music_layer("arp", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_ARP.ogg"), -80.0)
-	#MusicManagerHandler.add_music_layer("bass", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_BASS.ogg"), -80.0)
-	#MusicManagerHandler.add_music_layer("cello", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_CELLO.ogg"), -80.0)
-	#MusicManagerHandler.add_music_layer("taiko", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_TAIKO.ogg"), -80.0)
-	#MusicManagerHandler.add_music_layer("timpani", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_TIMPANI.ogg"), -80.0)
-	#MusicManagerHandler.play_music_layer("arp")
-	#MusicManagerHandler.play_music_layer("bass")
-	#MusicManagerHandler.play_music_layer("cello")
-	#MusicManagerHandler.play_music_layer("taiko")
-	#MusicManagerHandler.play_music_layer("timpani")
-#
-###Example usage:
-##func _ready():
-	##add_music_layer("regular", load("res://music/regular.ogg"))
-	##add_music_layer("npc", load("res://music/npc.ogg"))
-##
-##func _on_NPC_Talked():
-	##play_music_layer("npc")
-##
-##func _on_Exploring_Location():
-	##play_music_layer("regular")
 extends Node
+## MusicManager.gd
+## It's the very core of the (officially named) "Layers of O Music System"!
+## Or O-LAyers for short... not like it matters lmao.
+## Just set it up on an empty "node" inside a scene then load that scene as an 'autoload' and you're good to go.
+## Then it's up to you if you want to do it how I've done it here or do it differently.
+## What works for me, might not for you.
+## 
+## TL;DR: It loads instances of "AudioStreamPlayer' equal to the amount of "music_layers" you add.
+## Then you can manage at what volume the music starts and how quickly it fades in or out.
+## 
+## Example usage, to get you quickly started:
+## 
+## Adding a music "layer" is done like so:
+## [codeblock]
+## func _ready():
+##     add_music_layer("example_layer", load("res://path/to/yer/music.extension"), volume)
+## [/codeblock]
+## Where "example_layer" is the name you must give to your layer, keep it simple. 
+## Then we add the path to audio file, all that Godot supports out of the box will work of course.
+## Lastly is the "volume", which is self explanatory.
+## If you want the layer to start muted, simply use a value like '-80.0', which is the minimum Godot allows.
+## So in practice:
+## [codeblock]
+## func _ready():
+##     add_music_layer("sad_violin", load("res://bgm/bgm_sad_violin.ogg"), -80.0)
+## [/codeblock]
+## WARNING: Don't set 'volume' too high on positive values. In fact, unless your music is very VERY quiet
+##          I beg of you, set the 'volume' to a value like: '0.0' and then increase or decrease from there as needed.
+##          Just understand that the higher you go, the more you're likely to ruin your speakers or blow your ear drums out.
+##          It's by design btw. Feel free to look at the AudioStreamPlayer definition in official Godot 4 Docs.
+## Once you have all your layers prepped one way or another, you can then control how they "enter".
+## And how you manage playing, muting and unmuting layers goes like this:
+## [codeblock]
+## func _ready():
+##     play_music_layer("example_layer")
+##     set_music_layer_volume("example_layer", volume, fade_in_time, fade_out_time)
+## [/codeblock]
+## I think it's self explanatory. fade_in_time and fade_out_time are floats, just like volume btw.
+## If you set any of them to '0.0' then the change will happen instantly. No fade in or out then.
+## Le Practical Example:
+## [codeblock]
+## func mr_dingus_has_a_funi_pingus():
+##     play_music_layer("mrdingus")
+##     set_music_layer_volume("mrdingus", -2.0, 3.5, 0.0)
+## 
+## func mr_pingus_leaves():
+##     set_music_layer_volume("mrdingus", -2.0, 0.0, -3.8)
+## [/codeblock]
+## 
+## That's it. I guess. There's still some shit I haven't arrived at, but it's entirely perfectly usable.
+## 
+## Especially for me, since this is all I neeed. YAY!
 
 @onready var music_layers = {}
 
@@ -148,17 +85,7 @@ func stop_music_layer(layer_id):
 		if audio_stream_players.has(layer_id):
 			audio_stream_players[layer_id].stop()
 			audio_stream_players.erase(layer_id)
-
-#func _process(delta):
-	#for layer_id in music_layers:
-		#var layer = music_layers[layer_id]
-		#if layer.playing:
-			#layer.position += delta
-			#if layer.position >= layer.song.get_length():
-				#layer.position = 0.0
-			#if audio_stream_players.has(layer_id):
-				#audio_stream_players[layer_id].seek(layer.position)
-
+			
 func get_current_position(layer_id):
 	if audio_stream_players.has(layer_id):
 		return audio_stream_players[layer_id].get_playback_position()
@@ -172,31 +99,23 @@ func set_music_layer_volume(layer_id, volume: float, fade_in_time: float = 0.0, 
 		if fade_in_time == 0.0:
 			audio_stream_player.volume_db = volume
 		else:
-			#var start_volume = audio_stream_player.volume_db
 			var tween = create_tween()
-			tween.tween_property(audio_stream_player, "volume_db", volume, fade_in_time).set_ease(Tween.EASE_IN)
+			tween.tween_property(audio_stream_player, "volume_db", volume, fade_in_time).set_ease(Tween.EASE_OUT)
 			tween.play()
 		
 		if fade_out_time > 0.0 and layer.playing:
 			audio_stream_player.volume_db = volume
-			#var start_volume = audio_stream_player.volume_db
 			var tween = create_tween()
-			tween.tween_property(audio_stream_player, "volume_db", -100.0, fade_out_time).set_ease(Tween.EASE_OUT)
+			tween.tween_property(audio_stream_player, "volume_db", -80.0, fade_out_time).set_ease(Tween.EASE_OUT)
 			tween.play()
-			#await get_tree().create_timer(1.0).timeout
-			#audio_stream_player.stop()
-			#audio_stream_players.erase(layer_id)
 		print("CURRENT VOLUME: ", volume)
 		
-### We now set functions to load and then play layers in a level. One function per level.
-func test_layers():
-	MusicManagerHandler.add_music_layer("basic", load("res://sounds/BGM/lobby/bgm_lobby_basic.ogg"), -100.0)
-	MusicManagerHandler.add_music_layer("misso", load("res://sounds/BGM/lobby/bgm_lobby_misso.ogg"), -100.0)
-	MusicManagerHandler.add_music_layer("sales", load("res://sounds/BGM/lobby/bgm_lobby_sales.ogg"), -100.0)
-	#MusicManagerHandler.add_music_layer("taiko", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_TAIKO.ogg"), -80.0)
-	#MusicManagerHandler.add_music_layer("timpani", load("res://sounds/BGM/dynmustest/BGM_LVL01_CALM_PT1_TIMPANI.ogg"), -80.0)
-	MusicManagerHandler.play_music_layer("basic")
-	MusicManagerHandler.play_music_layer("misso")
-	MusicManagerHandler.play_music_layer("sales")
-	#MusicManagerHandler.play_music_layer("taiko")
-	#MusicManagerHandler.play_music_layer("timpani")
+
+## Rainbow Hotel - Lobby -
+func lobby_music():
+	add_music_layer("basic", load("res://sounds/BGM/lobby/bgm_lobby_basic.ogg"), -100.0)
+	add_music_layer("misso", load("res://sounds/BGM/lobby/bgm_lobby_misso.ogg"), -100.0)
+	add_music_layer("sales", load("res://sounds/BGM/lobby/bgm_lobby_sales.ogg"), -100.0)
+	play_music_layer("basic")
+	play_music_layer("misso")
+	play_music_layer("sales")

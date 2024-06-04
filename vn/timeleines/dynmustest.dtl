@@ -6,7 +6,7 @@ This is a test of a dynamic music system, choose an option and let's get on with
 	do MusicManagerHandler.set_music_layer_volume("basic", -3.5, 0.0, 10.5)
 	return
 - Lobby - Miss O Layer -
-	do MusicManagerHandler.set_music_layer_volume("misso", -3.5, 2.2, 0.0)
+	do MusicManagerHandler.set_music_layer_volume("misso", -3.5, 10.5, 0.0)
 	return
 - Lobby - Miss O Layer Mute -
 	do MusicManagerHandler.set_music_layer_volume("misso", -3.5, 0.0, 10.5)
