@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://v0ubulwsbh5f"]
+[gd_scene load_steps=68 format=3 uid="uid://v0ubulwsbh5f"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_0bnyn"]
 [ext_resource type="PackedScene" uid="uid://dti53twova3qk" path="res://scenes/players/player.tscn" id="1_ofo48"]
@@ -27,7 +27,6 @@
 [ext_resource type="Texture2D" uid="uid://coerfix121dxp" path="res://vn/sprites/ovelia/char_o_smug1-talk3_result.png" id="26_ibqdq"]
 [ext_resource type="PackedScene" uid="uid://d0fvitd7t82kr" path="res://sounds/BGM/dynmustest/musictest.tscn" id="27_b16hb"]
 [ext_resource type="PackedScene" uid="uid://cw0i4mixus1qf" path="res://vn/chars/salesman/Salesman.tscn" id="27_npjkx"]
-[ext_resource type="Script" path="res://scripts/AreaListener.gd" id="28_241tl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_strmk"]
 shading_mode = 0
@@ -325,7 +324,7 @@ animations = [{
 [sub_resource type="BoxShape3D" id="BoxShape3D_df6m7"]
 size = Vector3(8.665, 22.49, 0.68)
 
-[node name="World" type="Node3D" groups=["Maps"]]
+[node name="World" type="Node3D"]
 script = ExtResource("1_0bnyn")
 
 [node name="Environement" type="Node3D" parent="."]
@@ -488,7 +487,7 @@ transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 22.8946, 0.73782, 27.22
 
 [node name="ExitDoor1" parent="." instance=ExtResource("15_tl0ce")]
 
-[node name="Ovelia" type="StaticBody3D" parent="." groups=["NPCs"]]
+[node name="Ovelia" type="StaticBody3D" parent="."]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 31.4027, 1.4412, 29.2457)
 collision_layer = 7
 collision_mask = 15
@@ -508,7 +507,7 @@ frame_progress = 0.841948
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ovelia"]
 shape = SubResource("BoxShape3D_df6m7")
 
-[node name="Salesman" parent="." groups=["NPCs"] instance=ExtResource("27_npjkx")]
+[node name="Salesman" parent="." instance=ExtResource("27_npjkx")]
 transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 19.7454, 1.22648, 23.1188)
 collision_layer = 7
 collision_mask = 15
@@ -517,8 +516,5 @@ collision_mask = 15
 
 [node name="MusicTest" parent="." instance=ExtResource("27_b16hb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.9904, 1.30385, 30.0956)
-
-[node name="Node" type="Node" parent="."]
-script = ExtResource("28_241tl")
 
 [connection signal="blue_key_signal" from="Key" to="Player" method="_on_key_blue_key_signal"]

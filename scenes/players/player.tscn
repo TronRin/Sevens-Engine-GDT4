@@ -1,12 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dti53twova3qk"]
+[gd_scene load_steps=7 format=3 uid="uid://dti53twova3qk"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_dueo3"]
 [ext_resource type="Script" path="res://scenes/players/Interactor.gd" id="3_vueg4"]
+[ext_resource type="Script" path="res://scripts/AreaListener.gd" id="4_ggdbr"]
 [ext_resource type="Script" path="res://scenes/players/PickUp.gd" id="4_srnl0"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f2fxo"]
 radius = 0.35
 height = 1.35
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ksush"]
+radius = 1.535
 
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
 collision_layer = 2
@@ -96,14 +100,18 @@ debug_shape_custom_color = Color(1, 0, 0.992157, 0.576471)
 script = ExtResource("3_vueg4")
 
 [node name="pickup_ray" type="Node3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.988109, 0)
-
-[node name="PickUp" type="RayCast3D" parent="Head/pickup_ray"]
-target_position = Vector3(0, -0.47, -0.83)
-collision_mask = 14
-collide_with_areas = true
-debug_shape_custom_color = Color(0, 0.992157, 0, 0.584314)
-debug_shape_thickness = 5
-script = ExtResource("4_srnl0")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0372527, 0)
 
 [node name="Items" type="Node3D" parent="."]
+
+[node name="PickUp" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53725, 0)
+collision_layer = 14
+collision_mask = 15
+script = ExtResource("4_srnl0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickUp"]
+shape = SubResource("SphereShape3D_ksush")
+
+[node name="Node" type="Node" parent="PickUp"]
+script = ExtResource("4_ggdbr")

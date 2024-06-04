@@ -1,8 +1,10 @@
-extends RayCast3D
+extends Area3D
 
-@onready var picker = $"..".get_children()
+@onready var pickupper = $".".get_children()
 
 func _physics_process(_delta):
-	for col in picker:
-		if col.is_colliding() and col.get_collider().has_method("picked_up"):
-				col.get_collider().picked_up()
+	AreaChecker.emit_area_entered()
+
+func get_0(number):
+	number = 0
+	number.get_0()

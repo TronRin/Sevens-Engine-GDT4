@@ -244,8 +244,8 @@ func update_velocity_air(wish_dir: Vector3, delta):
 		#if area.is_colliding() and area.get_collider().has_method("picked_up"):
 			#area.get_collider().picked_up()
 
-func _on_pickup_area_entered():
-	pass
+func on_enter_area():
+	print("Player entered the area!")
 
 func restart():
 	get_tree().reload_current_scene()

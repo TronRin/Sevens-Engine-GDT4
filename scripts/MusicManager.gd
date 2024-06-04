@@ -91,7 +91,7 @@ func get_current_position(layer_id):
 		return audio_stream_players[layer_id].get_playback_position()
 	return 0.0
 
-func set_music_layer_volume(layer_id, volume: float, fade_in_time: float = 0.0, fade_out_time: float = 0.0):
+func set_music_layer_volume(layer_id, music_area: Area3D, volume: float, fade_in_time: float = 0.0, fade_out_time: float = 0.0):
 	if music_layers.has(layer_id) and audio_stream_players.has(layer_id):
 		var audio_stream_player = audio_stream_players[layer_id]
 		var layer = music_layers[layer_id]
@@ -108,7 +108,11 @@ func set_music_layer_volume(layer_id, volume: float, fade_in_time: float = 0.0, 
 			var tween = create_tween()
 			tween.tween_property(audio_stream_player, "volume_db", -80.0, fade_out_time).set_ease(Tween.EASE_OUT)
 			tween.play()
-		print("CURRENT VOLUME: ", volume)
+		#if music_area.area_shape_entered:
+			#var player_shape = music_area.shape_find_owner(area_shape_index)
+			
+			
+		print("CURRENT VOLUME: ", volume, " ", "CURRENT LAYER ID: ", layer_id, " ", "CURRENT MUSIC AREA: ", music_area)
 		
 
 ## Rainbow Hotel - Lobby -

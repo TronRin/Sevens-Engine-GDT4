@@ -1,4 +1,4 @@
-extends Node3D
+extends Area3D
 @onready var KEY = $"."
 
 signal blue_key_signal
@@ -8,11 +8,12 @@ var is_picked_up = false
 func _ready():
 	pass
 
-func picked_up():
+func on_area_entered():
 	if not is_picked_up:
 		var key_name = "blue_key"
 		Inventory.inventory.append(key_name)
 		blue_key_signal.emit()
+		print("key is picked up")
 #		is_picked_up = true
 #	if is_picked_up:
 #		remove_key()

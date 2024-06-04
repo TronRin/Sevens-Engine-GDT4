@@ -30,6 +30,8 @@ Quest="*res://quests/Quest.gd"
 QuestList="*res://quests/testq/QuestList.gd"
 MusicManager="res://scripts/MusicManager.gd"
 MusicManagerHandler="*res://sounds/BGM/dynmustest/music_manager_handler.tscn"
+AreaChecker="*res://scripts/AreaChecker.gd"
+AreaListener="res://scripts/AreaListener.gd"
 OveliaAnimHandler="*res://vn/chars/OveliaAnimHandler.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
