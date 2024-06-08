@@ -1,3 +1,4 @@
+do MusicManagerHandler.set_music_layer_volume("misso", -3.5, 2.5, 0.0)
 join Ovelia 1 [animation="Bounce In" wait="true"]
 Ovelia (default/normal): So... did you get it?
 Ovelia (default/mischevious): Oh...[pause=1.1!] You actually did, huh.

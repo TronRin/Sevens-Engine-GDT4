@@ -31,7 +31,6 @@ func _process(_delta):
 	pass
 
 func talk_with_o():
-	MusicManagerHandler.set_music_layer_volume("misso", $DynMusArea, -3.5, 2.2, 0.0)
 	var current_state = get_current_state()
 	if dialogue_map.has(current_state):
 		var dialogue_data = dialogue_map[current_state]
@@ -60,6 +59,9 @@ func _handle_has_key():
 
 func _handle_tbrush_complete():
 	return
+	
+func call_music_layer():
+	MusicManagerHandler.set_music_layer_volume("misso", -3.5, 0.0, 10.5)
 #func talk_with_o():
 	#if not has_key(key_name):
 		## check if a dialog is already running

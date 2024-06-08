@@ -91,11 +91,12 @@ func get_current_position(layer_id):
 		return audio_stream_players[layer_id].get_playback_position()
 	return 0.0
 
-func set_music_layer_volume(layer_id, music_area: Area3D, volume: float, fade_in_time: float = 0.0, fade_out_time: float = 0.0):
+func set_music_layer_volume(layer_id, volume: float, fade_in_time: float = 0.0, fade_out_time: float = 0.0):
 	if music_layers.has(layer_id) and audio_stream_players.has(layer_id):
 		var audio_stream_player = audio_stream_players[layer_id]
 		var layer = music_layers[layer_id]
 		layer.volume = volume
+		
 		if fade_in_time == 0.0:
 			audio_stream_player.volume_db = volume
 		else:
@@ -108,18 +109,11 @@ func set_music_layer_volume(layer_id, music_area: Area3D, volume: float, fade_in
 			var tween = create_tween()
 			tween.tween_property(audio_stream_player, "volume_db", -80.0, fade_out_time).set_ease(Tween.EASE_OUT)
 			tween.play()
-		#if music_area.area_shape_entered:
-			#var player_shape = music_area.shape_find_owner(area_shape_index)
-			
-			
-		print("CURRENT VOLUME: ", volume, " ", "CURRENT LAYER ID: ", layer_id, " ", "CURRENT MUSIC AREA: ", music_area)
+	#if music_area.area_shape_entered:
+		#var player_shape = music_area.shape_find_owner(area_shape_index)
+		
+		
+		print("CURRENT VOLUME: ", volume, " ", "CURRENT LAYER ID: ", layer_id, " ")
 		
 
 ## Rainbow Hotel - Lobby -
-func lobby_music():
-	add_music_layer("basic", load("res://sounds/BGM/lobby/bgm_lobby_basic.ogg"), -100.0)
-	add_music_layer("misso", load("res://sounds/BGM/lobby/bgm_lobby_misso.ogg"), -100.0)
-	add_music_layer("sales", load("res://sounds/BGM/lobby/bgm_lobby_sales.ogg"), -100.0)
-	play_music_layer("basic")
-	play_music_layer("misso")
-	play_music_layer("sales")

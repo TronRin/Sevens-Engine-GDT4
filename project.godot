@@ -12,7 +12,7 @@ config_version=5
 
 config/name="SevensEngine-GDT"
 run/main_scene="res://world.tscn"
-config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
+config/features=PackedStringArray("4.2", "GL Compatibility")
 run/max_fps=60
 config/icon="res://icon.svg"
 
@@ -30,7 +30,7 @@ Quest="*res://quests/Quest.gd"
 QuestList="*res://quests/testq/QuestList.gd"
 MusicManager="res://scripts/MusicManager.gd"
 MusicManagerHandler="*res://sounds/BGM/dynmustest/music_manager_handler.tscn"
-AreaChecker="*res://scripts/AreaChecker.gd"
+AreaChecker="res://scripts/AreaChecker.gd"
 AreaListener="res://scripts/AreaListener.gd"
 OveliaAnimHandler="*res://vn/chars/OveliaAnimHandler.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
@@ -88,8 +88,9 @@ text/advance_delay=0.1
 
 [display]
 
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/size/mode=3
-window/stretch/mode="canvas_items"
 
 [dotnet]
 
@@ -97,7 +98,7 @@ project/assembly_name="SevensEngine-GDT"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/func_godot/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/import_scml/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/func_godot/plugin.cfg", "res://addons/import_scml/plugin.cfg")
 
 [input]
 

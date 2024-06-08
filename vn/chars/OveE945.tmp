@@ -1,0 +1,86 @@
+[gd_scene load_steps=12 format=3 uid="uid://dx4pwqd758loe"]
+
+[ext_resource type="Script" path="res://vn/chars/Ovelia.gd" id="1_3n07t"]
+[ext_resource type="Texture2D" uid="uid://r6oqk7cwot2g" path="res://vn/sprites/ovelia/char_o_smug1_result.png" id="1_ottwf"]
+[ext_resource type="Texture2D" uid="uid://c6o0ha3fhv82y" path="res://vn/sprites/ovelia/char_o_smug2_result.png" id="2_tlppa"]
+[ext_resource type="Texture2D" uid="uid://v003jaxgh15n" path="res://vn/sprites/ovelia/char_o_smug3_result.png" id="3_vva3n"]
+[ext_resource type="Texture2D" uid="uid://ckwwbh7okvfsj" path="res://vn/sprites/ovelia/char_o_smug4_result.png" id="4_aca11"]
+[ext_resource type="Texture2D" uid="uid://bvs6lmlvei1o0" path="res://vn/sprites/ovelia/char_o_smug1-talk2_result.png" id="5_7apnf"]
+[ext_resource type="Texture2D" uid="uid://coerfix121dxp" path="res://vn/sprites/ovelia/char_o_smug1-talk3_result.png" id="6_m7ifp"]
+[ext_resource type="Script" path="res://vn/chars/DynMusArea.gd" id="8_udpda"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i2683"]
+animations = [{
+"frames": [{
+"duration": 35.0,
+"texture": ExtResource("1_ottwf")
+}, {
+"duration": 0.5,
+"texture": ExtResource("2_tlppa")
+}, {
+"duration": 0.5,
+"texture": ExtResource("3_vva3n")
+}, {
+"duration": 0.5,
+"texture": ExtResource("4_aca11")
+}, {
+"duration": 0.5,
+"texture": ExtResource("3_vva3n")
+}, {
+"duration": 0.5,
+"texture": ExtResource("2_tlppa")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.35,
+"texture": ExtResource("1_ottwf")
+}, {
+"duration": 0.35,
+"texture": ExtResource("5_7apnf")
+}, {
+"duration": 0.35,
+"texture": ExtResource("6_m7ifp")
+}, {
+"duration": 0.35,
+"texture": ExtResource("5_7apnf")
+}],
+"loop": true,
+"name": &"talk",
+"speed": 5.0
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_df6m7"]
+size = Vector3(8.665, 22.49, 0.68)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_4h0rr"]
+height = 9.00076
+radius = 22.559
+
+[node name="Ovelia" type="StaticBody3D" groups=["NPCs"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2754, 0)
+script = ExtResource("1_3n07t")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.86842, 0)
+pixel_size = 0.035
+billboard = 2
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_i2683")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.841948
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_df6m7")
+
+[node name="DynMusArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.84808, 0)
+collision_layer = 14
+collision_mask = 15
+script = ExtResource("8_udpda")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DynMusArea"]
+shape = SubResource("CylinderShape3D_4h0rr")

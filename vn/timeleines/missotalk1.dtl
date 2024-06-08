@@ -1,3 +1,4 @@
+do MusicManagerHandler.set_music_layer_volume("misso", -3.5, 2.5, 0.0)
 join Ovelia 1 [animation="Bounce In" wait="true"]
 Ovelia (default/normal): Hello, slav- We mean, our new toy-that-we-will-break-most-likely.
 Ovelia (default/evil grin): We have a job for you, as a matter of fact.
@@ -17,4 +18,5 @@ if {missotalk1.yes!} == true:
 	[end_timeline]
 elif {missotalk1.no!} == true:
 	Ovelia (default/excited evil grin): How about we slice your throat with our nails and we'll see what color is your blood? Well, it's gonna be red, but let us do it anyway!
+	do MusicManagerHandler.set_music_layer_volume("misso", -3.5, 0.0, 10.5)
 	[end_timeline]

@@ -1,15 +1,11 @@
-extends Node
+# PlayerDetection.gd
 
-@onready var body = Area3D.new()
+extends Node3D
 
-func ready():
-	body.area_entered.connect(_on_area_entered)
-
-func emit_area_entered():
-	body.area_entered.emit()
-			
-
-func _on_area_entered():
-	print("_on_area_entered working!!!")
-	if body.get_parent().has_method("on_area_entered"):
-		call("on_area_eneted")
+#func on_body_entered(body: CharacterBody3D):
+	#if body == player:
+		#MusicManagerHandler.set_music_layer_volume("misso", $Ovelia/DynMusArea2, $Player, -2.5, 5.5, 0.0)
+#
+#func on_body_exited(body: CharacterBody3D):
+	#if body == player:
+		#MusicManagerHandler.set_music_layer_volume("misso", $Ovelia/DynMusArea2, $Player, -2.5, 0.0, 5.5)

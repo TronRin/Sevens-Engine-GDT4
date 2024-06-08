@@ -1,3 +1,4 @@
+do MusicManagerHandler.set_music_layer_volume("sales", -3.5, 2.5, 0.0)
 join "The Creepy Salesman" 1
 "The Creepy Salesman": Hee[pause=0.6!] hee.[pause=0.6!] So you finally decided to give the good ol' salesman a spin![pause=1.0!] Whatchu' buyin'?
 - Toilet Brush... [if {sales_toiletbrush.toiletbrush} == false][else="hide"]
@@ -13,5 +14,5 @@ if {sales_toiletbrush.toiletbrush} == true:
 	[end_timeline]
 elif {sales_toiletbrush.whatyougot} == true:
 	"The Creepy Salesman": Nuttin' for the undecisive ones. Come back later.
-	[end_timeline]
 	do MusicManagerHandler.set_music_layer_volume("sales", -3.5, 0.0, 10.5)
+	[end_timeline]
